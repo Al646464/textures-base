@@ -11,10 +11,18 @@ GLuint playerTexture;
 
 
 // Window size
-const unsigned int initWidth = 512;
-const unsigned int initHeight = 512;
+const unsigned int initWidth = 600;
+const unsigned int initHeight = 600;
+
+//value of pi
+const float pi = 3.141593f;
 
 // Function prototypes
+void drawOctagon();
+void drawScales();
+void drawL();
+void drawPlayer();
+
 void renderScene();
 void resizeWindow(GLFWwindow* window, int width, int height);
 void keyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -70,7 +78,7 @@ int main() {
 	//
 
 	// Load image file from disk
-	auto textureImageFile = string("Assets\\Textures\\player1_ship.png");
+	auto textureImageFile = string("assets\\Textures\\mario_head.png");
 	FIBITMAP* bitmap = FreeImage_Load(FIF_PNG, textureImageFile.c_str(), BMP_DEFAULT);
 
 	if (bitmap) {
@@ -142,8 +150,136 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Render objects here...
+	//drawOctagon();
+	//drawScales();
+	//drawL();
+	drawPlayer();
+
+
+}
+
+void drawOctagon() {
+	const float thetaStepSize = 2.0f * pi / 6.0f;
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex2f(0.0f, 0.0f);
+
+	for (int i = 0; i <= 6; i++)
+	{
+		float x = cosf(thetaStepSize * float(i));
+		float y = sinf(thetaStepSize * float(i));
+		glVertex2f(x, y);
+	}
+
+	glEnd();
+}
+
+void drawScales()
+{
+	// diamond holding scales
+	glBegin(GL_QUADS);
+
+	glColor3ub(255, 0, 255);
+
+	glVertex2f(-0.75f, 0.85f);
+	glVertex2f(0.0f, 0.95f);
+	glVertex2f(0.75f, 0.85f);
+	glVertex2f(0.0f, 0.75f);
+
+	glEnd();
+
+	// sring for left scale
+	glBegin(GL_LINE_LOOP);
+
+	glColor3ub(10, 50, 100);
+
+	glVertex2f(-0.75f, 0.85f);
+	glVertex2f(-0.85f, 0.65f);
+	glVertex2f(-0.55f, 0.65f);
+	glVertex2f(-0.75f, 0.85f);
+
+	glEnd();
+
+	// left scale
+	glBegin(GL_QUADS);
+
+	glColor3ub(146, 245, 97);
+
+	glVertex2f(-0.85f, 0.65f);
+	glVertex2f(-0.55f, 0.65f);
+	glVertex2f(-0.55f, 0.45f);
+	glVertex2f(-0.85f, 0.45f);
+
+	glEnd();
+
+	// string for right scale
+	glBegin(GL_LINE_LOOP);
+
+	glColor3ub(60, 150, 246);
+
+	glVertex2f(0.75f, 0.85f);
+	glVertex2f(0.85f, 0.65f);
+	glVertex2f(0.55f, 0.65f);
+	glVertex2f(0.75f, 0.85f);
+
+	glEnd();
+
+	//right scale
+	glBegin(GL_QUADS);
+
+	glColor3ub(169, 60, 189);
+
+	glVertex2f(0.85f, 0.65f);
+	glVertex2f(0.55f, 0.65f);
+	glVertex2f(0.55f, 0.45f);
+	glVertex2f(0.85f, 0.45f);
+
+	glEnd();
+
+	//triangular base
+	glBegin(GL_TRIANGLES);
+
+	glColor3ub(10, 10, 254);
+	glVertex2f(0.0f, 0.75f);
+
+	glColor3ub(255, 0, 0);
+	glVertex2f(0.25f, 0.0f);
+
+	glColor3ub(0, 255, 0);
+	glVertex2f(-0.25f, 0.0f);
+
+	glEnd();
+}
+
+void drawL()
+{
+	glBegin(GL_TRIANGLE_STRIP);
+
+	glVertex2f(0.1f, 0.5f);
+	glVertex2f(0.1f, 0.4f);
+	glVertex2f(0.0f, 0.5f);
+	glVertex2f(0.0f, 0.4f);
+	glVertex2f(0.0f, 0.3f);
+	glVertex2f(0.1f, 0.4f);
+	glVertex2f(0.1f, 0.3f);
+	glVertex2f(0.2f, 0.4f);
+	glVertex2f(0.2f, 0.3f);
+
+	glEnd();
+}
+
+void drawPlayer()
+{
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+
+	
+
 	glBindTexture(GL_TEXTURE_2D, playerTexture);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glBegin(GL_QUADS);
 
@@ -164,7 +300,6 @@ void renderScene()
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
 }
-
 
 // Function to call when window resized
 void resizeWindow(GLFWwindow* window, int width, int height)
