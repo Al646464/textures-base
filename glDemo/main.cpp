@@ -150,9 +150,9 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Render objects here...
-	//drawOctagon();
+	drawOctagon();
 	//drawScales();
-	drawL();
+	//drawL();
 	//drawPlayer();
 
 
@@ -161,19 +161,32 @@ void renderScene()
 void drawOctagon() {
 	const float thetaStepSize = 2.0f * pi / 6.0f;
 
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+
+	glBindTexture(GL_TEXTURE_2D, playerTexture);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glBegin(GL_TRIANGLE_FAN);
 
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glTexCoord2f(0.5f, 0.5f);
 	glVertex2f(0.0f, 0.0f);
 
 	for (int i = 0; i <= 6; i++)
 	{
 		float x = cosf(thetaStepSize * float(i));
 		float y = sinf(thetaStepSize * float(i));
+
+		
 		glVertex2f(x, y);
+		
 	}
 
 	glEnd();
+
+	//glDisable(GL_BLEND);
+	//glDisable(GL_TEXTURE_2D);
 }
 
 void drawScales()
@@ -283,6 +296,9 @@ void drawL()
 	glVertex2f(0.2f, 0.3f);
 
 	glEnd();
+
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
 }
 
 void drawPlayer()
