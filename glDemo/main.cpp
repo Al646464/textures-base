@@ -255,20 +255,31 @@ void drawScales()
 
 void drawL()
 {
-	//glEnable(GL_TEXTURE_2D);
-	//glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
 
-	//glBindTexture(GL_TEXTURE_2D, playerTexture);
+	glBindTexture(GL_TEXTURE_2D, playerTexture);
 
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glBegin(GL_TRIANGLE_STRIP);
 
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex2f(0.0f, 0.5f);
+
+	glTexCoord2f(0.5f, 1.0f);
 	glVertex2f(0.1f, 0.5f);
+
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex2f(0.0f, 0.2f);
+
+	glTexCoord2f(0.5f, 1.0f);
 	glVertex2f(0.1f, 0.3f);
+
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex2f(0.2f, 0.2f);
+
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex2f(0.2f, 0.3f);
 
 	glEnd();
