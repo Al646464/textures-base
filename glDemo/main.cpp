@@ -152,8 +152,8 @@ void renderScene()
 	// Render objects here...
 	//drawOctagon();
 	//drawScales();
-	//drawL();
-	drawPlayer();
+	drawL();
+	//drawPlayer();
 
 
 }
@@ -255,16 +255,20 @@ void drawScales()
 
 void drawL()
 {
+	//glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_BLEND);
+
+	//glBindTexture(GL_TEXTURE_2D, playerTexture);
+
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glBegin(GL_TRIANGLE_STRIP);
 
-	glVertex2f(0.1f, 0.5f);
-	glVertex2f(0.1f, 0.4f);
 	glVertex2f(0.0f, 0.5f);
-	glVertex2f(0.0f, 0.4f);
-	glVertex2f(0.0f, 0.3f);
-	glVertex2f(0.1f, 0.4f);
+	glVertex2f(0.1f, 0.5f);
+	glVertex2f(0.0f, 0.2f);
 	glVertex2f(0.1f, 0.3f);
-	glVertex2f(0.2f, 0.4f);
+	glVertex2f(0.2f, 0.2f);
 	glVertex2f(0.2f, 0.3f);
 
 	glEnd();
@@ -274,8 +278,6 @@ void drawPlayer()
 {
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
-
-	
 
 	glBindTexture(GL_TEXTURE_2D, playerTexture);
 
